@@ -1,0 +1,1 @@
+pyinstaller -D -w --i "./Icon/Main.ico" --version-file file_version_info.txt DataProcessing.py
