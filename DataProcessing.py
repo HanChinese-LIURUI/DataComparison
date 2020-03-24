@@ -153,6 +153,7 @@ class Qtmainwin(QWidget):
         StartTime = time.perf_counter()
         for i in DictData:
             Data[i] = 1
+        count = 0
         for i in CorrelationData:
             if i not in Data:
                 ErrorData.append(i)
@@ -162,7 +163,11 @@ class Qtmainwin(QWidget):
                 newItem = QTableWidgetItem("%s" % text)  # 写入数据
                 self.data.setItem(i, 0, newItem)
                 self.data.verticalScrollBar().setValue(self.data.maximumHeight())
-                QApplication.processEvents()
+                count += 1
+                if count > 40000:
+                    count = 0
+                    QApplication.processEvents()
+
         EndTime = time.perf_counter()
         text = '处理完成，耗时%sS' % (EndTime - StartTime)
         i = self.data.rowCount()  # 获取当前行数
